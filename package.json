@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/davidsm09/festival_music/issues"
   },
-  "homepage": "https://github.com/davidsm09/festival_music#readme"
+  "homepage": "https://github.com/davidsm09/festival_music#readme",
+  "devDependencies": {
+    "sass": "^1.69.7"
+  }
 }
