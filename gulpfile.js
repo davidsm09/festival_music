@@ -1,7 +1,27 @@
-function tarea(done) {
-    console.log('mi primer tarea');
+const { src, dest, watch} = require("gulp");
+const sass = require('gulp-sass')(require('sass'));
 
-    done()
+function css(done) {
+
+    src('src/scss/app.scss')// 1 - identificar el archivo sass
+    .pipe( sass() ) // 2- compilarlo
+    .pipe( dest( "build/css" ) ); // 3 - almacenar en el disco duro
+    
+    
+    // 1 = la parte de src se encarga de identificar y el pipe se encarga de ejecutar la funcion de compilado, 3 la funcion dest se encarga de almacenar en disco en la ruta que le demos
+    
+    
+    
+    done();// callback que avisa a gulp cuando llegamos al final
 }
 
-exports.tarea = tarea;
+function dev(done) {
+    watch('src/scss/app.scss', css)
+    
+    
+    
+    done();
+}
+
+exports.css = css;
+exports.dev = dev;
