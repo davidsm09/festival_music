@@ -1,5 +1,2 @@
-$rojo: red;
+@use 'base';// @import forma antigua de enlazar los archivos scss
 
-:root {
-    background-color: $rojo;
-}
