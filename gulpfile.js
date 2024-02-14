@@ -1,6 +1,13 @@
-const { src, dest, watch} = require("gulp");
+const { src, dest, watch, parallel} = require("gulp");
+
+//CSS
 const sass = require('gulp-sass')(require('sass'));
 const plumber = require('gulp-plumber');
+
+
+//Imagenes
+
+
 
 function css(done) {
 
@@ -17,6 +24,22 @@ function css(done) {
     done();// callback que avisa a gulp cuando llegamos al final
 }
 
+async function versionWebp(done) {
+
+    const webp = await import("gulp-webp"); // Manda a traer la dependencia instalada con "npm install --save-dev gulp-webp" desde la terminal" 
+
+    const opciones = {
+        quality: 50
+    };
+    
+    src('FestivalMusica_inicio/img/**/*.{png,PNG,jpg,JPG}') //identificar todos los archivos a ejecutar y se especifica su formato
+    .pipe( webp.default(opciones))
+    .pipe( dest('build/img'))
+    
+    
+    done(); // Callback que avisa a gulp cuando llegamos al final de la ejecución del script
+}
+
 function dev(done) {
     watch('src/scss/**/*.scss', css);
     
@@ -26,4 +49,5 @@ function dev(done) {
 }
 
 exports.css = css;
-exports.dev = dev;
+exports.versionWebp = versionWebp;
+exports.dev = parallel( versionWebp, dev);
