@@ -6,7 +6,9 @@ const plumber = require('gulp-plumber');
 
 
 //Imagenes
-
+const avif = require('gulp-avif');
+const imagemin = require ('gulp-imagemin');
+const cache = require('gulp-cache');
 
 
 function css(done) {
@@ -22,6 +24,32 @@ function css(done) {
     
     
     done();// callback que avisa a gulp cuando llegamos al final
+}
+
+function imagenes(done) {
+    const opciones = {
+        optimizationLevel: 3
+    }
+
+    src('FestivalMusica_inicio/img/**/*.{png,PNG,jpg,JPG}')
+    .pipe( cache( imagemin() ) )
+    .pipe( dest('build/img'))
+
+
+    done()
+}
+
+function versionAvif( done ) {
+    const opciones = {
+        quality: 50
+    }
+
+    src('FestivalMusica_inicio/img/**/*.{png,PNG,jpg,JPG}')
+    .pipe( avif(opciones))
+    .pipe( dest('build/img'))
+
+
+    done()
 }
 
 async function versionWebp(done) {
@@ -49,5 +77,7 @@ function dev(done) {
 }
 
 exports.css = css;
+exports.imagenes = imagenes;
 exports.versionWebp = versionWebp;
-exports.dev = parallel( versionWebp, dev);
+exports.versionAvif = versionAvif;
+exports.dev = parallel(imagenes, versionWebp, versionAvif, dev);
