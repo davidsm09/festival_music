@@ -478,3 +478,11 @@ img {
   color: #f53756;
   font-weight: 700;
 }
+
+.lineup {
+  background-color: #f53756;
+}
+.lineup h3, .lineup p {
+  text-align: center;
+  color: #ffffff;
+}
