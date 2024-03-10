@@ -486,3 +486,15 @@ img {
   text-align: center;
   color: #ffffff;
 }
+.lineup .dia {
+  text-transform: uppercase;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .escenarios-contenedor {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5rem;
+  }
+}

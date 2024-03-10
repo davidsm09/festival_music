@@ -8,4 +8,16 @@
         text-align: center;
         color: v.$blanco;
     }
+
+    .dia {
+        text-transform: uppercase;
+        margin-bottom: 5rem;
+    }
+}
+
+
+.escenarios-contenedor {
+    @include m.tablet {
+        @include m.grid(2, 5rem)
+    }
 }
