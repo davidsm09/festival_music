@@ -6,6 +6,7 @@ const plumber = require('gulp-plumber');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const postcss = require('gulp-postcss');
+const sourcemaps = require('gulp-sourcemaps');
 
 
 //Imagenes
@@ -13,14 +14,20 @@ const avif = require('gulp-avif');
 const imagemin = require ('gulp-imagemin');
 const cache = require('gulp-cache');
 
+//javaScript
+
+const terser = require('gulp-terser-js');
+
 
 function css(done) {
 
     src('src/scss/**/*.scss')// 1 - identificar el archivo sass
+    .pipe(sourcemaps.init())
     .pipe( plumber())
     .pipe( sass() ) // 2- compilarlo
     .pipe( postcss([autoprefixer(), cssnano() ]) )
-    .pipe( dest( "build/css" ) ); // 3 - almacenar en el disco duro
+    .pipe(sourcemaps.write('.'))
+    .pipe( dest( "build/css" ) ) // 3 - almacenar en el disco duro
     
     
     // 1 = la parte de src se encarga de identificar y el pipe se encarga de ejecutar la funcion de compilado, 3 la funcion dest se encarga de almacenar en disco en la ruta que le demos
@@ -82,6 +89,9 @@ function dev(done) {
 
 function javascript(done) {
     src('src/js/**/*.js')
+    .pipe(sourcemaps.init())
+    .pipe(terser() )
+    .pipe(sourcemaps.write('.'))
     .pipe(dest('build/js'));
 
     done()
